@@ -25,7 +25,7 @@ export function PackageCard({ pkg }: { pkg: TourPackage }) {
     <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md animate-fade-up">
       <Link to={`/paket/${pkg.slug}`} className="relative block h-44 overflow-hidden" aria-label={`Lihat detail ${pkg.name}`}>
         <div className="h-full w-full transition-transform duration-500 group-hover:scale-105"><Scene id={pkg.gallery[0]} /></div>
-        <Badge tone="accent" className="absolute left-3 top-3 bg-accent text-accent-foreground">{CATEGORY_LABEL[pkg.category]}</Badge>
+        <Badge tone="accent" className="absolute left-3 top-3 bg-accent text-white">{CATEGORY_LABEL[pkg.category]}</Badge>
       </Link>
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div>
