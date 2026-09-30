@@ -8,7 +8,7 @@ export function PackageGallery({ images, name }: { images: string[]; name: strin
   const go = (d: number) => setI((i + d + images.length) % images.length)
   return (
     <div>
-      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-black/5">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-black/5 md:aspect-[16/9]">
         <Scene id={images[i]} alt={`${name} — ${SCENE_LABEL[images[i]] ?? `foto ${i + 1}`}`} />
         <button onClick={() => go(-1)} aria-label="Foto sebelumnya" className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:bg-white"><ChevronLeft className="h-5 w-5" /></button>
         <button onClick={() => go(1)} aria-label="Foto berikutnya" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow hover:bg-white"><ChevronRight className="h-5 w-5" /></button>

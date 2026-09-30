@@ -53,7 +53,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="no-print sticky top-0 z-40 border-b border-black/5 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
+    <header className="no-print sticky top-0 z-40 border-b border-black/5 bg-white/90 backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
       <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between px-4 sm:px-6">
         <Logo />
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">

@@ -14,7 +14,7 @@ const WELCOME: Msg = {
   text: 'Assalamu’alaikum! Saya asisten virtual Mahyaa Tour. Saya bekerja dengan aturan & data simulasi (bukan AI sungguhan). Apa yang ingin Anda ketahui?',
 }
 
-export function ChatbotWidget() {
+export function ChatbotWidget({ lift = false }: { lift?: boolean }) {
   const [open, setOpen] = useState(false)
   const [msgs, setMsgs] = useState<Msg[]>([WELCOME])
   const [text, setText] = useState('')
@@ -42,7 +42,7 @@ export function ChatbotWidget() {
     <div className="no-print">
       {!open && (
         <button onClick={() => setOpen(true)} aria-label="Buka asisten virtual"
-          className="fixed bottom-20 right-4 z-40 flex items-center gap-2 rounded-full bg-primary px-4 py-3 text-primary-foreground shadow-lg hover:bg-secondary lg:bottom-6">
+          className={cn('fixed right-4 z-40 flex h-12 items-center gap-2 rounded-full bg-primary px-3.5 text-primary-foreground shadow-lg hover:bg-secondary sm:px-4 lg:bottom-6', lift ? 'bottom-24' : 'bottom-4')}>
           <MessageCircle className="h-5 w-5" /><span className="hidden text-sm font-semibold sm:inline">Tanya Asisten</span>
         </button>
       )}

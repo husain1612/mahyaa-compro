@@ -39,7 +39,18 @@ export function AdminBookings() {
         <div><label htmlFor="ab-s" className="sr-only">Filter status</label><Select id="ab-s" className="w-56" value={status} onChange={(e) => setStatus(e.target.value as BookingStatus | '')}><option value="">Semua status</option>{(Object.keys(BOOKING_STATUS) as BookingStatus[]).map((s) => <option key={s} value={s}>{BOOKING_STATUS[s].label}</option>)}</Select></div>
       </div>
       {rows.length === 0 ? <EmptyState title="Tidak ada pemesanan" description="Ubah pencarian atau filter status." /> : (
-        <div className="overflow-x-auto rounded-xl border border-border bg-surface">
+        <>
+        <ul className="space-y-3 md:hidden">
+          {rows.map((b) => (
+            <li key={b.id} className="rounded-2xl border border-border bg-surface p-4">
+              <div className="flex items-start justify-between gap-2"><span className="font-mono text-xs text-muted">{b.bookingCode}</span><StatusBadge status={b.status} /></div>
+              <p className="mt-2 font-semibold">{b.packageName}</p>
+              <p className="text-sm text-muted">{b.booker.fullName} · {b.passengers.length} jemaah · {formatDateShort(b.departureDate)}</p>
+              <div className="mt-3 flex items-center justify-between"><span className="font-bold text-primary">{formatRupiah(b.pricing.total)}</span><Button size="sm" variant="outline" onClick={() => setDetail(b)} aria-label={`Detail ${b.bookingCode}`}><Eye className="h-4 w-4" />Detail</Button></div>
+            </li>
+          ))}
+        </ul>
+        <div className="hidden overflow-x-auto rounded-2xl border border-border bg-surface md:block">
           <table className="w-full min-w-[760px] text-sm">
             <thead className="bg-black/5 text-left"><tr><th className="p-3">Kode</th><th className="p-3">Pemesan</th><th className="p-3">Paket</th><th className="p-3">Berangkat</th><th className="p-3 text-right">Total</th><th className="p-3">Status</th><th className="p-3"><span className="sr-only">Aksi</span></th></tr></thead>
             <tbody>{rows.map((b) => (
@@ -52,6 +63,7 @@ export function AdminBookings() {
             ))}</tbody>
           </table>
         </div>
+        </>
       )}
       <Dialog open={!!detail} onOpenChange={(o) => !o && setDetail(null)}>
         <DialogContent title={`Booking ${detail?.bookingCode ?? ''}`} description="Detail pemesanan (data simulasi)" className="max-w-2xl">
