@@ -8,11 +8,11 @@ import { cn } from '@/utils/cn'
 export type SceneId = 'kaaba' | 'nabawi' | 'hotel' | 'flight' | 'madinah-night' | 'dates'
 
 const skies: Record<SceneId, [string, string]> = {
-  kaaba: ['#0b3d35', '#c9a24b'],
-  nabawi: ['#123f5a', '#e8c98a'],
-  hotel: ['#1f4b43', '#f0dfb5'],
+  kaaba: ['#3e2716', '#c9a24b'],
+  nabawi: ['#5a3a22', '#e8c98a'],
+  hotel: ['#4a3020', '#f0dfb5'],
   flight: ['#0e3b6b', '#9cc7e8'],
-  'madinah-night': ['#0a1f3a', '#1e6a5c'],
+  'madinah-night': ['#1a1410', '#6b4423'],
   dates: ['#5a3a16', '#d9a441'],
 }
 
@@ -49,9 +49,9 @@ export function Scene({ id, className, alt }: { id: string; className?: string; 
       {sid === 'hotel' && (<g>
         <rect x="140" y="70" width="120" height="150" fill="#f6efdc" />
         {Array.from({ length: 5 }).flatMap((_, r) => Array.from({ length: 4 }).map((__, c) => (
-          <rect key={`${r}${c}`} x={152 + c * 28} y={82 + r * 28} width="16" height="16" fill={(r + c) % 3 === 0 ? '#c9a24b' : '#3a6b62'} />
+          <rect key={`${r}${c}`} x={152 + c * 28} y={82 + r * 28} width="16" height="16" fill={(r + c) % 3 === 0 ? '#c9a24b' : '#8a6a48'} />
         )))}
-        <rect x="185" y="190" width="30" height="30" fill="#0b3d35" />
+        <rect x="185" y="190" width="30" height="30" fill="#3e2716" />
       </g>)}
       {sid === 'flight' && (<g>
         <path d="M60 170c50-30 130-70 260-90l-20 25 40 15-30 15-15 18-45-14-95 40-10-25z" fill="#fff" />

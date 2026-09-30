@@ -1,22 +1,21 @@
 /*
  * SISTEM WARNA MAHYAA TOUR — terpusat di sini.
  *
- * CATATAN: website resmi https://mahyaatour.com/ tidak dapat diakses dari lingkungan
- * pengembangan (diblokir egress proxy), sehingga HEX resmi belum dapat diverifikasi.
- * Nilai di bawah adalah PLACEHOLDER sementara. Ganti hanya di file ini setelah
- * warna resmi (logo, navbar, tombol) diketahui; seluruh UI membaca variabel ini.
+ * Identitas merek: COKLAT (sesuai arahan pemilik; mahyaatour.com tidak dapat diakses dari
+ * lingkungan pengembangan). Nilai HEX di bawah adalah pendekatan coklat dan BELUM dicocokkan
+ * piksel-per-piksel dengan logo/website resmi. Ganti hanya di file ini bila HEX resmi berbeda.
  */
 :root {
-  --color-primary: #0f5c4d;
+  --color-primary: #6b4423;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #0b3d35;
-  --color-accent: #c9a24b;
-  --color-accent-foreground: #2b2108;
-  --color-background: #fafaf7;
+  --color-secondary: #3e2716;
+  --color-accent: #d4a55a;
+  --color-accent-foreground: #2b1a0b;
+  --color-background: #fbf7f1;
   --color-surface: #ffffff;
-  --color-text: #1b2622;
-  --color-muted: #5f6b66;
-  --color-border: #e2e6e1;
+  --color-text: #2a1d14;
+  --color-muted: #6f5f53;
+  --color-border: #e7ddd0;
   --color-success: #15803d;
   --color-warning: #b45309;
   --color-danger: #b91c1c;

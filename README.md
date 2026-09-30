@@ -14,7 +14,7 @@ npm run build      # tsc + vite build
 Akun demo (tombol di halaman `/masuk`): **Jemaah Demo** dan **Admin Demo** (kata sandi apa pun ≥ 6 karakter). Kode promo: `MAHYAA10`, `KELUARGA` (min. 4 jemaah), `EARLYBIRD`. Admin → Pengaturan → *Reset data demo* mengembalikan seluruh data awal.
 
 ## Yang perlu diketahui
-- **Warna merek belum terverifikasi.** https://mahyaatour.com/ tidak dapat diakses dari lingkungan pengembangan (diblokir), sehingga HEX resmi tidak dapat dipastikan. `src/styles/theme.css` berisi palet **placeholder** (`--color-primary`, `--color-accent`, dst.). Ganti nilainya di sana; seluruh UI membaca variabel tersebut. Logo (`components/common/Logo.tsx`) juga placeholder.
+- **Warna merek: coklat** (arahan pemilik). mahyaatour.com tidak dapat diakses dari lingkungan pengembangan, jadi HEX di `src/styles/theme.css` adalah pendekatan coklat dan belum dicocokkan dengan logo resmi; ganti nilainya di sana bila berbeda (seluruh UI membaca variabel tersebut). Logo (`components/common/Logo.tsx`) masih placeholder.
 - **Foto**: tidak ada foto asli; `components/common/Scene.tsx` menggambar ilustrasi SVG. Isi `gallery` paket dengan URL gambar untuk memakai foto asli.
 - Nomor WhatsApp dummy: `WHATSAPP_NUMBER` di `src/utils/format.ts`.
 - Chatbot berbasis aturan (`services/chatbotService.ts`), bukan AI sungguhan.
