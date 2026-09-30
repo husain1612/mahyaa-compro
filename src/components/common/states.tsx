@@ -64,9 +64,9 @@ export const DemoBanner = ({ className }: { className?: string }) => (
 
 export const PageHeader = ({ title, subtitle, children }: { title: string; subtitle?: string; children?: ReactNode }) => (
   <div className="mx-3 mt-3 overflow-hidden rounded-[2rem] bg-secondary pattern-islamic text-white sm:mx-4">
-    <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-8">
+    <div className="relative mx-auto max-w-7xl px-5 py-7 sm:px-8 sm:py-12">
       <div aria-hidden className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-accent/40 blur-3xl" />
-      <h1 className="relative text-3xl font-extrabold sm:text-5xl">{title}</h1>
+      <h1 className="relative text-3xl font-bold sm:text-5xl">{title}</h1>
       {subtitle && <p className="relative mt-3 max-w-2xl text-white/80">{subtitle}</p>}
       {children}
     </div>

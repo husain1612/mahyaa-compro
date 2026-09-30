@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { ChevronDown, LayoutDashboard, LogOut, Menu, Shield, UserRound, X } from 'lucide-react'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { ChevronDown, LayoutDashboard, LogOut, Search, Shield, UserRound, X } from 'lucide-react'
 import { Logo } from '@/components/common/Logo'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { HeroSearch } from '@/components/home/HeroSearch'
 import { useAuth } from '@/store/authStore'
 import { cn } from '@/utils/cn'
 import { toast } from 'sonner'
@@ -41,9 +43,12 @@ function Dropdown({ label, items }: { label: string; items: Item[] }) {
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const { session, logout } = useAuth()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const close = () => setOpen(false)
+  useEffect(() => { setOpen(false); setSearchOpen(false) }, [pathname])
 
   const doLogout = async () => {
     await logout()
@@ -53,10 +58,22 @@ export function Navbar() {
   }
 
   return (
-    <header className="no-print sticky top-0 z-40 border-b border-black/5 bg-white/90 backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
-      <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between px-4 sm:px-6">
+    <header className="no-print pattern-islamic sticky top-0 z-40 bg-primary lg:border-b lg:border-black/5 lg:bg-white/90 lg:backdrop-blur-xl lg:supports-[backdrop-filter]:bg-white/80 lg:[background-image:none]">
+      {/* Mobile: bar berwarna dengan kolom pencarian + tombol logo (menu) */}
+      <div className="flex items-center gap-3 px-3 py-3 lg:hidden">
+        <button onClick={() => setSearchOpen(true)} className="flex h-14 min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-full border border-white/60 px-4 text-left text-white transition active:bg-white/10">
+          <Search className="h-6 w-6 shrink-0" aria-hidden />
+          <span className="min-w-0"><span className="block truncate text-[15px] font-semibold leading-tight">Mau berangkat dari mana?</span><span className="block truncate text-sm text-white/80">Cari Bandara & Keberangkatan</span></span>
+        </button>
+        <button onClick={() => setOpen((o) => !o)} aria-label={open ? 'Tutup menu' : 'Buka menu'} aria-expanded={open} aria-controls="mobile-menu" className="grid h-14 w-14 shrink-0 cursor-pointer place-items-center rounded-full border border-white/60 bg-white/10 transition active:scale-95">
+          {open ? <X className="h-6 w-6 text-white" /> : <img src="/favicon.png" alt="" className="h-8 w-8 brightness-0 invert" />}
+        </button>
+      </div>
+
+      {/* Desktop */}
+      <div className="mx-auto hidden h-[4.25rem] max-w-7xl items-center justify-between px-6 lg:flex">
         <Logo />
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
+        <nav className="flex items-center gap-1" aria-label="Navigasi utama">
           <Link to="/umrah?category=plus" className="mr-1 flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10">Umrah Plus<span className="h-2 w-2 rounded-full bg-red-500" aria-hidden /></Link>
           {menus.map((m) => <Dropdown key={m.label} {...m} />)}
           {session ? (
@@ -71,12 +88,10 @@ export function Navbar() {
             </>
           )}
         </nav>
-        <button className="rounded-md p-2 lg:hidden" onClick={() => setOpen((o) => !o)} aria-label={open ? 'Tutup menu' : 'Buka menu'} aria-expanded={open} aria-controls="mobile-menu">
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
       </div>
+
       {open && (
-        <div id="mobile-menu" className="animate-fade-up max-h-[80vh] overflow-y-auto bg-surface px-4 pb-4 text-text lg:hidden">
+        <div id="mobile-menu" className="animate-fade-up max-h-[75vh] overflow-y-auto rounded-b-3xl bg-surface px-4 pb-5 text-text shadow-xl lg:hidden">
           <nav className="py-2" aria-label="Navigasi seluler">
             <NavLink to="/" end onClick={close} className="block rounded-xl px-3 py-2.5 font-medium hover:bg-primary/10">Beranda</NavLink>
             {menus.map((m) => (
@@ -94,14 +109,20 @@ export function Navbar() {
                 <button onClick={doLogout} className="rounded-full py-2.5 font-semibold text-danger">Keluar</button>
               </>
             ) : (
-              <>
+              <div className="grid grid-cols-2 gap-2">
                 <Link onClick={close} to="/masuk" className="rounded-full bg-primary py-2.5 text-center font-semibold text-white">Masuk</Link>
                 <Link onClick={close} to="/daftar" className="rounded-full border border-border py-2.5 text-center font-semibold">Daftar</Link>
-              </>
+              </div>
             )}
           </div>
         </div>
       )}
+
+      <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
+        <DialogContent title="Mau berangkat dari mana?" description="Cari paket berdasarkan bandara dan bulan keberangkatan" className="left-0 top-auto bottom-0 w-full max-w-none translate-x-0 translate-y-0 rounded-b-none rounded-t-[2rem] pb-8">
+          <HeroSearch embedded onSubmitted={() => setSearchOpen(false)} />
+        </DialogContent>
+      </Dialog>
     </header>
   )
 }
