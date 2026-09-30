@@ -54,6 +54,10 @@ export const bookingService = {
     return delay(list.sort((a, b) => b.createdAt.localeCompare(a.createdAt)), 300)
   },
 
+  async listActivePromos(): Promise<Promotion[]> {
+    return delay(db.promotions().filter((p) => p.active), 250)
+  },
+
   async validatePromo(code: string, bookingId: string): Promise<Promotion> {
     const b = mustFind(bookingId)
     const promo = db.promotions().find((p) => p.code === code.trim().toUpperCase())

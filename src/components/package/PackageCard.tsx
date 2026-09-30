@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { CalendarDays, Clock, Hotel, Plane } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, Clock, Hotel, Plane } from 'lucide-react'
 import type { TourPackage } from '@/types'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -22,29 +22,31 @@ export function PackageCard({ pkg }: { pkg: TourPackage }) {
   const next = nextDeparture(pkg)
   const full = availabilityOf(pkg) === 'full'
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md animate-fade-up">
-      <Link to={`/paket/${pkg.slug}`} className="relative block h-44 overflow-hidden" aria-label={`Lihat detail ${pkg.name}`}>
+    <article className="group flex flex-col overflow-hidden rounded-[1.75rem] border border-border bg-surface p-2 shadow-[0_2px_20px_-8px_rgba(74,43,28,.2)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(74,43,28,.4)] animate-fade-up">
+      <Link to={`/paket/${pkg.slug}`} className="relative block h-56 overflow-hidden rounded-3xl" aria-label={`Lihat detail ${pkg.name}`}>
         <div className="h-full w-full transition-transform duration-500 group-hover:scale-105"><Scene id={pkg.gallery[0]} /></div>
-        <Badge tone="accent" className="absolute left-3 top-3 bg-accent text-white">{CATEGORY_LABEL[pkg.category]}</Badge>
-      </Link>
-      <div className="flex flex-1 flex-col gap-3 p-4">
-        <div>
-          <h3 className="text-lg font-semibold leading-snug"><Link to={`/paket/${pkg.slug}`} className="hover:text-primary">{pkg.name}</Link></h3>
-          <p className="mt-1 line-clamp-2 text-sm text-muted">{pkg.tagline}</p>
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+        <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-primary shadow">{CATEGORY_LABEL[pkg.category]}</span>
+        <span className="absolute right-3 top-3"><AvailabilityBadge pkg={pkg} /></span>
+        <div className="absolute inset-x-4 bottom-3 text-white">
+          <h3 className="text-xl font-extrabold leading-tight">{pkg.name}</h3>
+          <p className="mt-0.5 line-clamp-1 text-xs text-white/85">{pkg.tagline}</p>
         </div>
-        <ul className="space-y-1.5 text-sm text-muted">
-          <li className="flex items-center gap-2"><Clock className="h-4 w-4 text-primary" />{pkg.durationDays} hari</li>
-          <li className="flex items-center gap-2"><Plane className="h-4 w-4 text-primary" />{pkg.airline}</li>
-          <li className="flex items-center gap-2"><Hotel className="h-4 w-4 text-primary" />Makkah {pkg.hotelMakkah.star}★ · Madinah {pkg.hotelMadinah.star}★</li>
-          {next && <li className="flex items-center gap-2"><CalendarDays className="h-4 w-4 text-primary" />Berangkat {formatDateShort(next.date)} · {next.airportCode}</li>}
+      </Link>
+      <div className="flex flex-1 flex-col gap-3 p-3">
+        <ul className="flex flex-wrap gap-2 text-xs font-semibold text-primary">
+          <li className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5"><Clock className="h-3.5 w-3.5" />{pkg.durationDays} hari</li>
+          <li className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5"><Plane className="h-3.5 w-3.5" />{pkg.airline}</li>
+          <li className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5"><Hotel className="h-3.5 w-3.5" />{pkg.hotelMakkah.star}★ · {pkg.hotelMadinah.star}★</li>
+          {next && <li className="inline-flex items-center gap-1.5 rounded-full bg-accent/15 px-3 py-1.5"><CalendarDays className="h-3.5 w-3.5" />{formatDateShort(next.date)} · {next.airportCode}</li>}
         </ul>
-        <div className="mt-auto flex items-end justify-between gap-2 border-t border-border pt-3">
+        <div className="mt-auto flex items-end justify-between gap-2 pt-1">
           <div>
             <p className="text-xs text-muted">Mulai dari</p>
-            <p className="text-lg font-bold text-primary">{formatRupiah(minPrice(pkg))}</p>
+            <p className="text-2xl font-extrabold tracking-tight text-primary">{formatRupiah(minPrice(pkg))}</p>
             <p className="text-[11px] text-muted">per jemaah · data simulasi</p>
           </div>
-          <AvailabilityBadge pkg={pkg} />
+          <Link to={`/paket/${pkg.slug}`} aria-label={`Detail ${pkg.name}`} className="grid h-11 w-11 place-items-center rounded-full bg-primary text-primary-foreground transition group-hover:rotate-45 group-hover:bg-accent"><ArrowUpRight className="h-5 w-5" /></Link>
         </div>
         <div className="grid grid-cols-2 gap-2">
           <Button asChild variant="outline"><Link to={`/paket/${pkg.slug}`}>Detail</Link></Button>
