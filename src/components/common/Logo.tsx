@@ -6,7 +6,7 @@ import { cn } from '@/utils/cn'
 export function Logo({ light, className }: { light?: boolean; className?: string }) {
   return (
     <Link to="/" className={cn('inline-flex items-center', className)} aria-label="Mahyaa Tour & Travel — Beranda">
-      <img src={logo} alt="Mahyaa Tour & Travel" width={1258} height={309} className={cn('h-11 w-auto', light && 'brightness-0 invert')} />
+      <img src={logo} alt="Mahyaa Tour & Travel" width={1258} height={309} className={cn('h-10 w-auto', light && 'brightness-0 invert')} />
     </Link>
   )
 }

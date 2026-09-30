@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { ChevronDown, LayoutDashboard, LogOut, Mail, Menu, Shield, UserRound, X } from 'lucide-react'
+import { ChevronDown, LayoutDashboard, LogOut, Menu, Shield, UserRound, X } from 'lucide-react'
 import { Logo } from '@/components/common/Logo'
 import { useAuth } from '@/store/authStore'
 import { cn } from '@/utils/cn'
@@ -25,7 +25,7 @@ function Dropdown({ label, items }: { label: string; items: Item[] }) {
   }, [open])
   return (
     <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button className="flex cursor-pointer items-center gap-1 rounded-full px-3 py-2 text-[15px] font-medium text-white hover:bg-white/10" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+      <button className="flex cursor-pointer items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-text hover:bg-primary/10" aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         {label}<ChevronDown className={cn('h-4 w-4 transition-transform', open && 'rotate-180')} />
       </button>
       {open && (
@@ -53,27 +53,21 @@ export function Navbar() {
   }
 
   return (
-    <header className="no-print pattern-islamic sticky top-0 z-40 bg-primary text-white shadow-md">
-      <div className="hidden border-b border-white/10 text-xs lg:block">
-        <div className="mx-auto flex max-w-7xl justify-end gap-6 px-6 py-1.5 text-white/90">
-          <span className="flex items-center gap-1.5"><Mail className="h-3.5 w-3.5" />cs@mahyaa.example (dummy)</span>
-          <span className="flex items-center gap-1.5"><UserRound className="h-3.5 w-3.5" />Minggu & Libur Nasional Tutup</span>
-        </div>
-      </div>
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <Logo light />
+    <header className="no-print sticky top-0 z-40 border-b border-black/5 bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
+      <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between px-4 sm:px-6">
+        <Logo />
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
-          <Link to="/umrah?category=plus" className="mr-1 flex items-center gap-2 rounded-full border border-white/70 px-4 py-2 text-[15px] font-medium hover:bg-white/10">Umrah Plus<span className="h-2 w-2 rounded-full bg-red-500" aria-hidden /></Link>
+          <Link to="/umrah?category=plus" className="mr-1 flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10">Umrah Plus<span className="h-2 w-2 rounded-full bg-red-500" aria-hidden /></Link>
           {menus.map((m) => <Dropdown key={m.label} {...m} />)}
           {session ? (
             <>
-              <Link to={session.user.role === 'admin' ? '/admin' : '/dashboard'} className="ml-2 flex items-center gap-1.5 rounded-full bg-secondary px-5 py-2 text-[15px] font-medium hover:brightness-110">{session.user.role === 'admin' ? <Shield className="h-4 w-4" /> : <LayoutDashboard className="h-4 w-4" />}{session.user.role === 'admin' ? 'Admin' : 'Dashboard'}</Link>
-              <button onClick={doLogout} className="flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-2 text-[15px] hover:bg-white/10"><LogOut className="h-4 w-4" />Keluar</button>
+              <Link to={session.user.role === 'admin' ? '/admin' : '/dashboard'} className="ml-2 flex items-center gap-1.5 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-secondary">{session.user.role === 'admin' ? <Shield className="h-4 w-4" /> : <LayoutDashboard className="h-4 w-4" />}{session.user.role === 'admin' ? 'Admin' : 'Dashboard'}</Link>
+              <button onClick={doLogout} className="flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-2 text-sm hover:bg-primary/10"><LogOut className="h-4 w-4" />Keluar</button>
             </>
           ) : (
             <>
-              <NavLink to="/daftar" className="rounded-full px-3 py-2 text-[15px] font-medium hover:bg-white/10">Daftar</NavLink>
-              <Link to="/masuk" className="ml-1 rounded-full bg-secondary px-6 py-2.5 text-[15px] font-medium hover:brightness-110">Masuk</Link>
+              <NavLink to="/daftar" className="rounded-full px-3 py-2 text-sm font-medium hover:bg-primary/10">Daftar</NavLink>
+              <Link to="/masuk" className="ml-1 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-secondary hover:shadow-md">Masuk</Link>
             </>
           )}
         </nav>
