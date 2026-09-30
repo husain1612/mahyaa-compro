@@ -21,7 +21,7 @@ function Segment({ icon, caption, value, onChange, onClear, children, label }: {
   )
 }
 
-export function HeroSearch() {
+export function HeroSearch({ embedded = false, onSubmitted }: { embedded?: boolean; onSubmitted?: () => void }) {
   const nav = useNavigate()
   const [tab, setTab] = useState<Tab>('umrah')
   const [airport, setAirport] = useState('')
@@ -33,12 +33,13 @@ export function HeroSearch() {
     if (airport) p.set('airport', airport)
     if (month) p.set('month', month)
     nav(`/${tab}${p.toString() ? `?${p}` : ''}`)
+    onSubmitted?.()
   }
   const months = MONTH_OPTIONS.filter((m) => (tab === 'haji' ? m === '2027-05' : m !== '2027-05'))
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6">
-      <div className="flex gap-2 px-2 sm:px-10" role="tablist" aria-label="Jenis perjalanan">
+    <div className={embedded ? '' : 'mx-auto max-w-7xl px-4 sm:px-6'}>
+      <div className={embedded ? 'flex gap-2' : 'flex gap-2 px-2 sm:px-10'} role="tablist" aria-label="Jenis perjalanan">
         {([['umrah', 'Umrah'], ['haji', 'Haji']] as const).map(([id, l]) => (
           <button key={id} role="tab" aria-selected={tab === id} onClick={() => { setTab(id); setMonth('') }}
             className={cn('flex cursor-pointer items-center gap-2 rounded-full px-5 py-2 text-sm font-medium', tab === id ? 'bg-primary/10 text-primary' : 'text-muted hover:text-text')}>
@@ -46,7 +47,7 @@ export function HeroSearch() {
           </button>
         ))}
       </div>
-      <form onSubmit={submit} aria-label="Cari paket" className="mt-2 flex flex-col divide-y divide-border rounded-[2rem] bg-surface p-2 shadow-[0_10px_40px_-12px_rgba(74,43,28,.3)] sm:flex-row sm:items-center sm:divide-x sm:divide-y-0 lg:max-w-4xl">
+      <form onSubmit={submit} aria-label="Cari paket" className={cn('mt-2 flex flex-col divide-y divide-border rounded-[2rem] bg-surface p-2 sm:flex-row sm:items-center sm:divide-x sm:divide-y-0', embedded ? 'border border-border' : 'shadow-[0_10px_40px_-12px_rgba(74,43,28,.3)] lg:max-w-4xl')}>
         <Segment icon={<PlaneTakeoff className="h-6 w-6" />} caption="Bandara keberangkatan" label="Bandara" value={airport} onChange={setAirport} onClear={() => setAirport('')}>
           <option value="">Semua Bandara</option>
           {AIRPORTS.map((a) => <option key={a.code} value={a.code}>{a.code} — {a.name}</option>)}
