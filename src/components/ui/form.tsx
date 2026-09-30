@@ -6,7 +6,7 @@ export const Label = ({ className, ...p }: React.ComponentProps<typeof LabelPrim
   <LabelPrimitive.Root className={cn('text-sm font-medium text-text', className)} {...p} />
 )
 
-const field = 'w-full rounded-lg border border-border bg-surface px-3 text-sm text-text placeholder:text-muted/70 focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-60 aria-[invalid=true]:border-danger'
+const field = 'w-full rounded-xl border border-border bg-surface px-4 text-sm text-text placeholder:text-muted/70 focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-60 aria-[invalid=true]:border-danger'
 
 export const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(({ className, ...p }, ref) => (
   <input ref={ref} className={cn(field, 'h-11', className)} {...p} />

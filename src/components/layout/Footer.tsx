@@ -5,7 +5,7 @@ import { WHATSAPP_NUMBER, waLink } from '@/utils/format'
 
 export function Footer() {
   return (
-    <footer className="no-print mt-16 bg-secondary text-white/85">
+    <footer className="no-print mx-3 mb-3 mt-16 overflow-hidden rounded-[2rem] bg-secondary text-white/85 sm:mx-4">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
           <Logo light />
