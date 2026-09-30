@@ -74,7 +74,7 @@ export default function BookingPage() {
       <h1 className="text-3xl font-bold">Pemesanan Paket</h1>
       <p className="mt-1 text-muted">{pkg.name} · isi data pemesan dan jemaah.</p>
       <DemoBanner className="mt-4" />
-      <form onSubmit={handleSubmit((v) => create.mutate(v))} noValidate className="mt-6 grid gap-8 lg:grid-cols-[1fr_22rem]">
+      <form id="booking-form" onSubmit={handleSubmit((v) => create.mutate(v))} noValidate className="mt-6 grid gap-8 pb-24 lg:grid-cols-[1fr_22rem] lg:pb-0">
         <div className="space-y-6">
           <Card><CardContent className="space-y-4">
             <CardTitle>1. Keberangkatan & Kamar</CardTitle>
@@ -122,10 +122,14 @@ export default function BookingPage() {
 
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
           <BookingSummary pkg={pkg} departure={dep} room={room} pricing={pricing} />
-          <Button type="submit" size="lg" className="w-full" variant="accent" loading={create.isPending} disabled={overSeats}>Lanjut ke Checkout</Button>
+          <Button type="submit" size="lg" className="hidden w-full lg:inline-flex" variant="accent" loading={create.isPending} disabled={overSeats}>Lanjut ke Checkout</Button>
           <p className="text-center text-xs text-muted">Data tersimpan di LocalStorage browser (simulasi).</p>
         </aside>
       </form>
+      <div className="no-print fixed inset-x-0 bottom-0 z-30 flex items-center justify-between gap-3 border-t border-border bg-surface/95 p-3 pr-20 shadow-[0_-4px_12px_rgba(0,0,0,.08)] backdrop-blur lg:hidden">
+        <div><p className="text-[11px] text-muted">Total ({count} jemaah)</p><p className="font-bold text-primary">{formatRupiah(pricing.total)}</p></div>
+        <Button type="submit" form="booking-form" variant="accent" loading={create.isPending} disabled={overSeats}>Lanjut</Button>
+      </div>
     </div>
   )
 }

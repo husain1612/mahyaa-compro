@@ -14,7 +14,7 @@ const jt = (n: number) => `${(n / 1_000_000).toFixed(1)} Jt`
 export function AirportList({ packages }: { packages: TourPackage[] }) {
   const scenes = ['hotel', 'nabawi', 'flight', 'dates', 'kaaba']
   return (
-    <ul className="space-y-4">
+    <ul className="grid gap-3 md:grid-cols-2 md:gap-x-8 lg:grid-cols-1">
       {AIRPORTS.slice(0, 5).map((a, idx) => {
         const count = packages.filter((p) => p.departures.some((d) => d.airportCode === a.code)).length
         return (
@@ -41,7 +41,7 @@ export function SeatAvailability({ packages }: { packages: TourPackage[] }) {
   )
   return (
     <div className="relative">
-      <div ref={scroller} className="no-scrollbar -mx-1 flex snap-x gap-4 overflow-x-auto px-1 pb-3 pr-16">
+      <div ref={scroller} className="no-scrollbar -mx-1 flex snap-x gap-4 overflow-x-auto px-1 pb-3 sm:pr-16">
         {cards.map(({ p, d }) => (
           <Link key={d.id} to={`/paket/${p.slug}`} className="group w-60 shrink-0 snap-start rounded-2xl border border-border bg-surface p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg">
             <div className="flex h-9 items-center gap-2 text-primary"><PlaneTakeoff className="h-5 w-5" /><span className="truncate text-sm font-semibold">{p.airline}</span></div>
@@ -56,7 +56,7 @@ export function SeatAvailability({ packages }: { packages: TourPackage[] }) {
           </Link>
         ))}
       </div>
-      <button onClick={() => scroller.current?.scrollBy({ left: 260, behavior: 'smooth' })} aria-label="Geser ke kanan" className="absolute right-0 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-border bg-surface shadow-md hover:bg-primary/5"><ChevronRight className="h-5 w-5" /></button>
+      <button onClick={() => scroller.current?.scrollBy({ left: 260, behavior: 'smooth' })} aria-label="Geser ke kanan" className="absolute right-0 top-1/2 hidden h-12 w-12 sm:grid -translate-y-1/2 place-items-center rounded-full border border-border bg-surface shadow-md hover:bg-primary/5"><ChevronRight className="h-5 w-5" /></button>
     </div>
   )
 }

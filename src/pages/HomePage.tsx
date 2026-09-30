@@ -52,13 +52,13 @@ export default function HomePage() {
 
       <Reveal>
         <section aria-label="Promo aktif" className="mx-auto max-w-7xl px-4 pt-16 sm:px-6">
-          <div className="mb-5 flex items-center gap-2 text-sm font-semibold text-primary"><Tag className="h-4 w-4" />Promo aktif <span className="font-normal text-muted">· ketuk untuk menyalin kode, pakai saat checkout</span></div>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="mb-5 flex flex-wrap items-center gap-x-2 text-sm font-semibold text-primary"><Tag className="h-4 w-4" />Promo aktif <span className="basis-full text-xs font-normal text-muted sm:basis-auto sm:text-sm">Ketuk kode untuk menyalin, pakai saat checkout</span></div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {(promos.data ?? []).slice(0, 3).map((p) => (
-              <div key={p.id} className="relative flex items-center gap-4 overflow-hidden rounded-3xl bg-surface p-5 ring-1 ring-black/5">
+              <div key={p.id} className="relative flex items-center gap-4 overflow-hidden rounded-3xl bg-surface p-5 ring-1 ring-black/5 sm:last:col-span-2 lg:last:col-span-1">
                 <div aria-hidden className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-accent/15" />
                 <div className="relative grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary text-lg font-bold text-white">{p.type === 'percent' ? `${p.value}%` : `${(p.value / 1_000_000).toString().replace('.', ',')}jt`}</div>
-                <div className="relative min-w-0 flex-1"><p className="truncate font-semibold">{p.title}</p><p className="line-clamp-1 text-xs text-muted">s.d. {formatDateShort(p.validUntil)}</p></div>
+                <div className="relative min-w-0 flex-1"><p className="line-clamp-2 text-sm font-semibold leading-snug">{p.title}</p><p className="line-clamp-1 text-xs text-muted">s.d. {formatDateShort(p.validUntil)}</p></div>
                 <button onClick={() => copy(p.code)} className="relative flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border border-dashed border-primary/40 px-3 py-1.5 font-mono text-xs font-bold text-primary hover:bg-primary/5" aria-label={`Salin kode ${p.code}`}>{p.code}<Copy className="h-3.5 w-3.5" /></button>
               </div>
             ))}
@@ -79,8 +79,8 @@ export default function HomePage() {
 
       <Reveal>
         <Section id="paket" eyebrow="Umrah" title="Pilihan paket umrah" subtitle="Dari hemat sampai premium — semua dengan harga transparan per tipe kamar." action={<Button asChild variant="outline"><Link to="/umrah">Lihat semua<ArrowRight className="h-4 w-4" /></Link></Button>} className="pt-4">
-          <div className="mb-8 inline-flex flex-wrap gap-1 rounded-full bg-black/5 p-1" role="tablist" aria-label="Kategori umrah">
-            {CATS.map((c) => <button key={c.label} role="tab" aria-selected={cat === c.id} onClick={() => setCat(c.id)} className={cn('cursor-pointer rounded-full px-5 py-2 text-sm font-semibold transition', cat === c.id ? 'bg-surface text-primary shadow-sm' : 'text-muted hover:text-text')}>{c.label}</button>)}
+          <div className="no-scrollbar mb-8 flex max-w-full gap-1 overflow-x-auto rounded-full bg-black/5 p-1 sm:inline-flex" role="tablist" aria-label="Kategori umrah">
+            {CATS.map((c) => <button key={c.label} role="tab" aria-selected={cat === c.id} onClick={() => setCat(c.id)} className={cn('shrink-0 cursor-pointer whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold transition', cat === c.id ? 'bg-surface text-primary shadow-sm' : 'text-muted hover:text-text')}>{c.label}</button>)}
           </div>
           {all.isError ? <ErrorState message="Gagal memuat paket." onRetry={() => all.refetch()} /> : all.isLoading ? <CardGridSkeleton count={3} /> : <PackageGrid packages={umrah} />}
         </Section>

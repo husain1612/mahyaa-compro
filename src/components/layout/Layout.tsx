@@ -20,8 +20,8 @@ export function Layout({ bare }: { bare?: boolean }) {
       <Navbar />
       <main id="main" className="flex-1"><Outlet /></main>
       {!bare && <Footer />}
-      <a href={waLink()} target="_blank" rel="noreferrer" aria-label="Chat WhatsApp admin (nomor dummy)" className="no-print fixed bottom-36 right-4 z-40 grid h-12 w-12 place-items-center rounded-full bg-[#25D366] text-white shadow-lg hover:brightness-110 lg:bottom-24"><MessageCircle className="h-6 w-6" /></a>
-      <ChatbotWidget />
+      <a href={waLink()} target="_blank" rel="noreferrer" aria-label="Chat WhatsApp admin (nomor dummy)" className="no-print fixed bottom-24 right-4 z-40 hidden h-12 w-12 place-items-center rounded-full bg-[#25D366] text-white shadow-lg hover:brightness-110 lg:grid"><MessageCircle className="h-6 w-6" /></a>
+      <ChatbotWidget lift={pathname.startsWith('/paket/')} />
       <Toaster richColors position="top-center" />
     </div>
   )
