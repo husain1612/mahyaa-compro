@@ -8,11 +8,11 @@ import { cn } from '@/utils/cn'
 export type SceneId = 'kaaba' | 'nabawi' | 'hotel' | 'flight' | 'madinah-night' | 'dates'
 
 const skies: Record<SceneId, [string, string]> = {
-  kaaba: ['#3e2716', '#c9a24b'],
-  nabawi: ['#5a3a22', '#e8c98a'],
-  hotel: ['#4a3020', '#f0dfb5'],
+  kaaba: ['#4a2b1c', '#c9a24b'],
+  nabawi: ['#6e4128', '#e8c98a'],
+  hotel: ['#5a3522', '#f0dfb5'],
   flight: ['#0e3b6b', '#9cc7e8'],
-  'madinah-night': ['#1a1410', '#6b4423'],
+  'madinah-night': ['#1a1410', '#824d34'],
   dates: ['#5a3a16', '#d9a441'],
 }
 

@@ -57,7 +57,7 @@ export function ConfirmationDialog({ open, onOpenChange, title, description, con
 }
 
 export const DemoBanner = ({ className }: { className?: string }) => (
-  <p className={cn('rounded-lg border border-accent/40 bg-accent/15 px-3 py-2 text-xs font-medium text-accent-foreground', className)}>
+  <p className={cn('rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-xs font-medium text-primary', className)}>
     DEMO — Data & transaksi pada situs ini adalah simulasi frontend, bukan pemesanan aktual.
   </p>
 )
